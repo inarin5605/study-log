@@ -676,23 +676,41 @@ function updatePeriodStats() {
   updateDailyGoalDisplay();
 }
 
-// 日：選択日の記録を縦棒グラフ表示
+// 日：選択日の科目ごとの勉強時間を縦棒グラフ表示
 function showDayStats() {
   const targetDateString = formatDateString(selectedDate);
 
-  periodTitle.textContent = "選択日の記録";
+  periodTitle.textContent = "選択日の科目ごとの勉強時間";
   currentPeriodLabel.textContent = formatDisplayDate(selectedDate);
 
-  const dayRecords = records.filter((record) => record.date === targetDateString);
+  const dayRecords = records.filter((record) => {
+    return record.date === targetDateString;
+  });
 
-  const graphData = dayRecords.map((record) => {
+  const subjectTotals = {};
+
+  dayRecords.forEach((record) => {
+    if (!subjectTotals[record.subject]) {
+      subjectTotals[record.subject] = 0;
+    }
+
+    subjectTotals[record.subject] += record.time;
+  });
+
+  const graphData = Object.entries(subjectTotals).map(([subject, minutes]) => {
     return {
-      label: record.subject,
-      minutes: record.time
+      label: subject,
+      minutes: minutes
     };
   });
 
-  const total = graphData.reduce((sum, item) => sum + item.minutes, 0);
+  graphData.sort((a, b) => {
+    return b.minutes - a.minutes;
+  });
+
+  const total = graphData.reduce((sum, item) => {
+    return sum + item.minutes;
+  }, 0);
 
   if (graphData.length === 0) {
     showEmptyMessage("この日の記録はありません");
