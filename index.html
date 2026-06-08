@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>勉強ログ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div>
+    <h1>勉強ログ</h1>
+    <p>今日も少しずつ進めよう</p>
+  </div>
+
+  <button id="themeToggleButton" class="theme-toggle-button">
+    🌙
+  </button>
+</header>
+
+<div id="timerTab" class="tab-content">
+  <h2>勉強タイマー</h2>
+
+  <div class="timer-area">
+    <div class="subject-input-row">
+  <input type="text" id="timerSubject" placeholder="科目" list="subjectSuggestions">
+  <button id="addSubjectButton">＋</button>
+</div>
+
+<div class="subject-preset-area">
+  <div id="subjectPresetList" class="subject-preset-list"></div>
+</div>
+
+    <div class="preset-buttons">
+  <button class="preset-button" data-minutes="15">15分</button>
+  <button class="preset-button" data-minutes="25">25分</button>
+  <button class="preset-button" data-minutes="50">50分</button>
+  <button class="preset-button" data-minutes="90">90分</button>
+</div>
+  <div class="timer-custom-row">
+  <button id="showTimerMinutesButton" class="timer-plus-button">＋</button>
+
+  <input
+    type="number"
+    id="timerMinutes"
+    class="hidden"
+    placeholder="タイマー時間（分）"
+  >
+</div>
+   
+    <p id="timerDisplay">00:00</p>
+    <p id="timerStatus">READY</p>
+
+    <div class="timer-control-buttons">
+  <button id="startTimerButton">開始</button>
+  <button id="pauseTimerButton">一時停止</button>
+  <button id="stopTimerButton">中断</button>
+</div>
+  </div>
+</div>
+
+ <div id="recordTab" class="tab-content hidden">
+
+<div class="stats-section">
+  <div class="stats-header">
+    <h2>勉強時間</h2>
+
+    <button id="showManualFormButton" class="manual-plus-button">
+      ＋
+    </button>
+  </div>
+
+  <div id="manualForm" class="form-area hidden">
+  <input type="date" id="date">
+  <input type="text" id="subject" placeholder="科目" list="subjectSuggestions">
+
+  <div class="manual-time-row">
+    <input type="time" id="manualStartTime">
+    <input type="time" id="manualEndTime">
+  </div>
+
+  <button id="addButton">追加</button>
+</div>
+
+  <div class="period-buttons">
+    <button class="period-button active-period" data-period="day">日</button>
+    <button class="period-button" data-period="week">週</button>
+    <button class="period-button" data-period="month">月</button>
+    <button class="period-button" data-period="year">年</button>
+  </div>
+
+ <div class="period-nav">
+  <button id="prevPeriodButton">前へ</button>
+  <span id="currentPeriodLabel">今日</span>
+  <button id="nextPeriodButton">次へ</button>
+</div>
+
+  <p id="periodTitle">今日の記録</p>
+  <p id="periodTime">0分</p>
+  
+  <div id="dailyGoalSection" class="daily-goal-section">
+  <div class="daily-goal-header">
+    <span>1日の目標</span>
+    <button id="editGoalButton">変更</button>
+  </div>
+
+  <div class="daily-goal-main">
+    <strong id="goalProgressText">0分 / 未設定</strong>
+    <span id="goalRemainingText">目標時間を設定してください</span>
+  </div>
+
+  <div class="goal-bar">
+    <div id="goalBarFill"></div>
+  </div>
+
+  <div id="goalForm" class="goal-form hidden">
+    <input type="number" id="dailyGoalInput" placeholder="目標時間（分）">
+    <button id="saveGoalButton">保存</button>
+  </div>
+</div>
+
+  <ul id="periodBreakdownList"></ul>
+
+  <div class="subject-summary">
+  <h3>科目別</h3>
+  <ul id="subjectSummaryList"></ul>
+</div>
+
+  <p id="totalTime">総勉強時間：0分</p>
+</div>
+
+<div class="record-section">
+  <h2 id="recordListTitle">選択日の記録</h2>
+  <ul id="recordList"></ul>
+</div>
+</div>
+
+<div id="settingsTab" class="tab-content hidden">
+  <div class="settings-section">
+    <h2>設定</h2>
+
+    <div class="data-section">
+      <h2>データ管理</h2>
+
+      <div class="data-buttons">
+        <button id="backupButton">バックアップ</button>
+        <button id="restoreButton">復元</button>
+        <button id="exportCsvButton">CSV出力</button>
+        <button id="clearDataButton">全削除</button>
+      </div>
+
+      <input type="file" id="restoreFileInput" accept=".json" class="hidden">
+    </div>
+  </div>
+</div>
+
+<div class="tab-buttons">
+  <button id="timerTabButton" class="active-tab">
+    <span class="tab-icon">⏱</span>
+    <span>タイマー</span>
+  </button>
+
+  <button id="recordTabButton">
+    <span class="tab-icon">📊</span>
+    <span>記録</span>
+  </button>
+
+  <button id="settingsTabButton">
+    <span class="tab-icon">⚙️</span>
+    <span>設定</span>
+  </button>
+</div>
+
+<datalist id="subjectSuggestions"></datalist>
+
+  <script src="script.js"></script>
+</body>
+</html>

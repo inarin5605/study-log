@@ -1,0 +1,1323 @@
+/* =========================
+   Study Log App - Final CSS
+   ========================= */
+
+/* ---------- Theme ---------- */
+:root {
+  --bg: #f3f6fb;
+  --card: #ffffff;
+  --card-soft: #f8faff;
+  --input: #fbfcff;
+  --text: #1f2937;
+  --muted: #8a94a6;
+  --border: #dfe6f2;
+  --border-soft: #e7edf7;
+
+  --primary: #4f7cff;
+  --primary-hover: #3f6df0;
+  --primary-soft: #eef3ff;
+  --primary-border: #d7e2ff;
+
+  --danger: #e11d48;
+  --danger-soft: #fff1f2;
+  --danger-border: #fecdd3;
+
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+body.dark-mode {
+  --bg: #0b1220;
+  --card: #172033;
+  --card-soft: #111827;
+  --input: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: #334155;
+  --border-soft: #26344d;
+
+  --primary: #60a5fa;
+  --primary-hover: #93c5fd;
+  --primary-soft: #22304a;
+  --primary-border: #34455f;
+
+  --danger: #fda4af;
+  --danger-soft: #3a1f2a;
+  --danger-border: #7f1d1d;
+
+  --shadow: none;
+  --shadow-soft: none;
+}
+
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 100px;
+  font-family: "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  animation: appFadeIn 0.5s ease;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 0.04em;
+}
+
+.app-header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.theme-toggle-button {
+  width: 52px !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: var(--card) !important;
+  color: var(--text) !important;
+  box-shadow: var(--shadow-soft) !important;
+  font-size: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ---------- Common cards ---------- */
+.form-area,
+.timer-area,
+.stats-section,
+.record-section,
+.data-section {
+  margin-bottom: 24px;
+  padding: 22px;
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  animation: cardFadeIn 0.6s ease both;
+}
+
+.form-area,
+.timer-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-section {
+  animation-delay: 0.08s;
+}
+
+.record-section {
+  animation-delay: 0.16s;
+}
+
+/* ---------- Inputs & buttons ---------- */
+input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--input);
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+input:focus {
+  background: var(--card);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.14);
+}
+
+button {
+  min-height: 48px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Timer tab ---------- */
+#timerTab h2 {
+  display: none;
+}
+
+.timer-area {
+  padding: 26px 22px;
+  border-radius: 26px;
+  gap: 16px;
+  background:
+    radial-gradient(circle at top, rgba(79, 124, 255, 0.14), transparent 40%),
+    var(--card);
+}
+
+body.dark-mode .timer-area {
+  background:
+    radial-gradient(circle at top, rgba(96, 165, 250, 0.16), transparent 42%),
+    var(--card);
+}
+
+.subject-input-row,
+.timer-custom-row {
+  display: grid;
+  grid-template-columns: 1fr 48px;
+  gap: 8px;
+  align-items: center;
+}
+
+#addSubjectButton,
+.timer-plus-button,
+.manual-plus-button {
+  width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  background: var(--card-soft) !important;
+  color: var(--primary) !important;
+  box-shadow: none !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#addSubjectButton:hover,
+.timer-plus-button:hover,
+.manual-plus-button:hover {
+  background: var(--primary-soft) !important;
+}
+
+.subject-preset-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subject-preset-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.subject-preset-button,
+.preset-button,
+.period-nav button,
+#editGoalButton,
+#saveGoalButton {
+  border: 1px solid var(--primary-border) !important;
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+  box-shadow: none !important;
+}
+
+.subject-preset-button {
+  flex: 0 0 auto;
+  min-height: 40px !important;
+  padding: 9px 12px !important;
+  border-radius: 999px !important;
+  font-size: 14px !important;
+}
+
+.subject-preset-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.preset-button {
+  min-height: 48px !important;
+  padding: 10px 8px !important;
+  border-radius: 14px !important;
+  font-size: 15px !important;
+}
+
+.timer-custom-row:has(#timerMinutes.hidden) {
+  grid-template-columns: 48px;
+  justify-content: end;
+}
+
+#timerDisplay {
+  order: -1;
+  margin: 8px 0 18px;
+  padding: 26px 12px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+#timerStatus,
+.timer-status {
+  margin: -8px 0 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+}
+
+.timer-status.running {
+  color: var(--primary);
+}
+
+.timer-status.paused {
+  color: #f59e0b;
+}
+
+.timer-status.done {
+  color: var(--primary);
+}
+
+.timer-control-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.timer-control-buttons button {
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 6px;
+  border-radius: 16px;
+  font-size: 15px;
+}
+
+#startTimerButton {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(79, 124, 255, 0.24) !important;
+}
+
+#startTimerButton:hover {
+  background: var(--primary-hover) !important;
+}
+
+#pauseTimerButton {
+  border: 1px solid var(--primary-border) !important;
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+  box-shadow: none !important;
+}
+
+#stopTimerButton {
+  border: 1px solid var(--danger-border) !important;
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Manual form ---------- */
+.manual-toggle-button {
+  display: none !important;
+}
+
+#manualForm {
+  margin-bottom: 20px;
+}
+
+.manual-time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ---------- Stats ---------- */
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.stats-header h2 {
+  margin: 0;
+}
+
+.manual-plus-button {
+  border-radius: 50% !important;
+}
+
+.manual-plus-button.open {
+  border-color: var(--danger-border) !important;
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+}
+
+.period-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.period-button {
+  min-height: 46px;
+  padding: 12px 8px;
+  border-radius: 999px;
+  background: #d8deea;
+  color: #333;
+  font-size: 15px;
+}
+
+body.dark-mode .period-button {
+  background: #26344d;
+  color: var(--text);
+}
+
+.period-button.active-period {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .period-button.active-period {
+  color: #0b1220 !important;
+}
+
+.period-nav {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.period-nav button {
+  min-height: 42px;
+  padding: 10px 8px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+#currentPeriodLabel {
+  color: var(--muted);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#periodTitle {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+#periodTime {
+  margin: 0 0 10px;
+  color: var(--primary);
+  font-size: 32px;
+  font-weight: 800;
+}
+
+#totalTime {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+#periodBreakdownList {
+  margin: 14px 0;
+}
+
+.breakdown-item,
+.empty-record,
+.subject-summary-item,
+.subject-summary-empty {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--primary-border);
+  border-radius: 12px;
+  background: var(--card-soft);
+  box-shadow: none;
+  list-style: none;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.empty-record,
+.subject-summary-empty {
+  justify-content: center;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ---------- Daily goal ---------- */
+.daily-goal-section {
+  margin: 14px 0 16px;
+  padding: 14px;
+  border: 1px solid var(--primary-border);
+  border-radius: 16px;
+  background: var(--card-soft);
+}
+
+.daily-goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.daily-goal-header span,
+.daily-goal-main span,
+.subject-summary h3 {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#editGoalButton,
+#saveGoalButton {
+  width: auto !important;
+  min-height: 32px !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+}
+
+.daily-goal-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.daily-goal-main strong {
+  color: var(--text);
+  font-size: 18px;
+}
+
+.goal-bar {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--border);
+}
+
+#goalBarFill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+  transition: width 0.35s ease;
+}
+
+.goal-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ---------- Graph ---------- */
+.vertical-graph-outer {
+  width: 100%;
+  height: 255px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 4px;
+  padding: 16px 10px 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.vertical-y-axis {
+  height: 170px;
+  margin-top: 22px;
+  padding: 0;
+  color: var(--muted);
+  text-align: right;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vertical-graph {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.graph-grid-lines {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  height: 170px;
+  pointer-events: none;
+}
+
+.graph-grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.graph-grid-line.top {
+  top: 0;
+}
+
+.graph-grid-line.middle {
+  top: 50%;
+}
+
+.graph-grid-line.bottom {
+  bottom: 0;
+}
+
+.vertical-bar-wrapper {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 220px;
+}
+
+.vertical-bar-area {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 65%;
+  max-width: 16px;
+  min-width: 3px;
+  height: 170px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  overflow: visible;
+  background: transparent;
+}
+
+.vertical-bar {
+  width: 100%;
+  min-height: 0;
+  border-radius: 7px 7px 2px 2px;
+  background: var(--primary);
+  box-shadow: none;
+  transition: height 0.35s ease;
+}
+
+.vertical-bar.zero-bar {
+  height: 0 !important;
+  min-height: 0 !important;
+  background: transparent !important;
+}
+
+.vertical-bar-label {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 24px;
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.graph-dense .vertical-bar-area {
+  width: 75%;
+  max-width: 7px;
+}
+
+.graph-dense .vertical-bar-label {
+  font-size: 8px;
+}
+
+/* ---------- Subject summary ---------- */
+.subject-summary {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.subject-summary h3 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.subject-summary-item span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.subject-summary-item strong {
+  color: var(--primary);
+  font-size: 15px;
+}
+
+/* ---------- Records ---------- */
+.record-section h2 {
+  margin-bottom: 14px;
+}
+
+.record-section li,
+.simple-record-card {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.record-info {
+  flex: 1;
+}
+
+.record-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.record-top strong {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.record-time {
+  color: var(--primary);
+  font-size: 17px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.record-time-range {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.record-date,
+.record-memo {
+  display: none !important;
+}
+
+.record-section li button,
+.simple-record-card button {
+  width: auto !important;
+  min-height: 32px !important;
+  padding: 6px 10px !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  box-shadow: none !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+}
+
+.record-section li button:hover,
+.simple-record-card button:hover {
+  border-color: var(--danger-border) !important;
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+  transform: none !important;
+}
+
+/* ---------- Data management ---------- */
+.data-section h2 {
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.data-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.data-buttons button {
+  min-height: 46px !important;
+  padding: 10px 8px !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+}
+
+#backupButton {
+  border: 1px solid var(--primary-border) !important;
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+}
+
+#restoreButton {
+  border: 1px solid var(--border) !important;
+  background: var(--card-soft) !important;
+  color: var(--muted) !important;
+}
+
+#exportCsvButton {
+  border: 1px solid #bbf7d0 !important;
+  background: #ecfdf3 !important;
+  color: #16a34a !important;
+}
+
+body.dark-mode #exportCsvButton {
+  border-color: #166534 !important;
+  background: #12351f !important;
+  color: #86efac !important;
+}
+
+#clearDataButton {
+  border: 1px solid var(--danger-border) !important;
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+}
+
+/* ---------- Bottom tabs ---------- */
+.tab-buttons {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px 18px;
+  border-radius: 24px 24px 0 0;
+  background: color-mix(in srgb, var(--card) 94%, transparent);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  gap: 10px;
+}
+
+body.dark-mode .tab-buttons {
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.tab-buttons button {
+  flex: 1;
+  min-height: 56px;
+  border-radius: 999px;
+  background: transparent !important;
+  color: var(--muted) !important;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.tab-buttons button.active-tab {
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+}
+
+.tab-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ---------- Animations ---------- */
+@keyframes appFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 14px 100px;
+    font-size: 14px;
+  }
+
+  .app-header {
+    margin-bottom: 24px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+    letter-spacing: 0.03em;
+  }
+
+  .app-header p {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .theme-toggle-button {
+    width: 50px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+  }
+
+  .form-area,
+  .timer-area,
+  .stats-section,
+  .record-section,
+  .data-section {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  input {
+    min-height: 54px;
+    padding: 15px 14px;
+    font-size: 15px;
+  }
+
+  input::placeholder {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+
+  #timerDisplay {
+    padding: 22px 8px;
+    font-size: 52px;
+    letter-spacing: 0.04em;
+  }
+
+  #timerStatus,
+  .timer-status {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    opacity: 0.65;
+  }
+
+  .preset-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .preset-button,
+  .subject-preset-button {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+
+  .subject-preset-empty {
+    display: none;
+  }
+
+  .subject-input-row,
+  .timer-custom-row {
+    grid-template-columns: 1fr 46px;
+  }
+
+  #addSubjectButton,
+  .timer-plus-button {
+    width: 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    font-size: 23px !important;
+  }
+
+  .timer-custom-row:has(#timerMinutes.hidden) {
+    grid-template-columns: 46px;
+    justify-content: end;
+  }
+
+  .timer-control-buttons {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .timer-control-buttons button {
+    min-height: 54px;
+    padding: 8px 4px;
+    font-size: 13px;
+  }
+
+  .period-buttons {
+    gap: 6px;
+  }
+
+  .period-button {
+    min-height: 48px;
+    padding: 12px 6px;
+    font-size: 14px;
+  }
+
+  .period-nav {
+    grid-template-columns: 1fr 1.6fr 1fr;
+  }
+
+  .period-nav button {
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  #periodTitle,
+  #currentPeriodLabel {
+    font-size: 14px;
+  }
+
+  #periodTime {
+    font-size: 34px;
+  }
+
+  .daily-goal-header span,
+  .daily-goal-main span,
+  .subject-summary h3,
+  #totalTime {
+    font-size: 12px;
+  }
+
+  .daily-goal-main strong {
+    font-size: 17px;
+  }
+
+  .goal-form,
+  .manual-time-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .vertical-graph-outer {
+    grid-template-columns: 22px minmax(0, 1fr);
+    height: 250px;
+    padding: 14px 8px 12px;
+  }
+
+  .vertical-y-axis {
+    height: 165px;
+    margin-top: 22px;
+    font-size: 9px;
+  }
+
+  .vertical-graph {
+    height: 215px;
+  }
+
+  .graph-grid-lines {
+    top: 22px;
+    height: 165px;
+  }
+
+  .vertical-bar-wrapper {
+    height: 215px;
+  }
+
+  .vertical-bar-area {
+    bottom: 28px;
+    max-width: 12px;
+    height: 165px;
+  }
+
+  .graph-dense .vertical-bar-area {
+    max-width: 6px;
+  }
+
+  .vertical-bar-label {
+    height: 24px;
+    font-size: 9px;
+    line-height: 24px;
+  }
+
+  .graph-dense .vertical-bar-label {
+    font-size: 8px;
+  }
+
+  .simple-record-card,
+  .record-section li {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .record-top strong,
+  .record-time {
+    font-size: 15px;
+  }
+
+  .record-time-range {
+    font-size: 12px;
+  }
+
+  .record-section li button,
+  .simple-record-card button {
+    align-self: center;
+    min-height: 32px !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .data-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .data-buttons button {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+
+  .tab-buttons button {
+    font-size: 12px;
+  }
+
+  .tab-icon {
+    font-size: 18px;
+  }
+}
+
+/* ===== 設定画面 ===== */
+
+.settings-section {
+  background: var(--card, #ffffff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.settings-section h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.settings-section .data-section {
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+/* 3タブでも下部をきれいにする */
+.tab-buttons {
+  gap: 8px;
+}
+
+.tab-buttons button {
+  min-width: 0;
+}
+
+/* ブラックモード */
+body.dark-mode .settings-section {
+  background: #172033;
+  border-color: #26344d;
+  box-shadow: none;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .settings-section {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .tab-buttons {
+    gap: 6px;
+  }
+
+  .tab-buttons button {
+    font-size: 11px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .tab-icon {
+    font-size: 17px !important;
+  }
+}
+
+/* ===== 記録編集ボタン ===== */
+
+.record-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.record-actions button {
+  width: auto !important;
+  min-height: 32px !important;
+
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+
+  font-size: 12px !important;
+  font-weight: 700 !important;
+
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.edit-record-button {
+  background: #eef3ff !important;
+  color: #4f7cff !important;
+  border: 1px solid #d7e2ff !important;
+}
+
+.edit-record-button:hover {
+  background: #e2eaff !important;
+  color: #3f6df0 !important;
+}
+
+.delete-record-button {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.delete-record-button:hover {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  border-color: #fecaca !important;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .record-actions {
+    align-self: flex-end;
+  }
+
+  .record-actions button {
+    font-size: 12px !important;
+    min-height: 32px !important;
+    padding: 6px 10px !important;
+  }
+}
+
+/* ブラックモード */
+body.dark-mode .edit-record-button {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+}
+
+body.dark-mode .edit-record-button:hover {
+  background: #2b3b59 !important;
+}
+
+body.dark-mode .delete-record-button {
+  color: #9ca3af !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode .delete-record-button:hover {
+  background: rgba(220, 38, 38, 0.18) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(248, 113, 113, 0.35) !important;
+}
