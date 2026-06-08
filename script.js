@@ -33,6 +33,7 @@ const pauseTimerButton = document.getElementById("pauseTimerButton");
 const stopTimerButton = document.getElementById("stopTimerButton");
 const timerDisplay = document.getElementById("timerDisplay");
 const timerStatus = document.getElementById("timerStatus");
+const timerRingProgress = document.getElementById("timerRingProgress");
 const timerSubjectInput = document.getElementById("timerSubject");
 const subjectPresetList = document.getElementById("subjectPresetList");
 const addSubjectButton = document.getElementById("addSubjectButton");
@@ -501,15 +502,30 @@ function resetTimerState() {
   timerStatus.className = "timer-status";
 
   updateTimerDisplay();
+  updateTimerRing(0);
 }
 // タイマー表示
 function updateTimerDisplay() {
   if (isOvertime) {
     timerDisplay.textContent = `+${formatTimerSeconds(overtimeSeconds)}`;
+    updateTimerRing(100);
     return;
   }
 
   timerDisplay.textContent = formatTimerSeconds(remainingSeconds);
+
+  if (originalSeconds > 0) {
+    const progress = ((originalSeconds - remainingSeconds) / originalSeconds) * 100;
+    updateTimerRing(progress);
+  } else {
+    updateTimerRing(0);
+  }
+}
+
+function updateTimerRing(progress) {
+  const safeProgress = Math.min(Math.max(progress, 0), 100);
+
+  timerRingProgress.style.setProperty("--ring-progress", safeProgress);
 }
 
 function formatTimerSeconds(seconds) {
