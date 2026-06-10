@@ -69,6 +69,9 @@ let overtimeSeconds = 0;
 let isPaused = false;
 let isOvertime = false;
 let timerStartDate = null;
+let timerEndTimestamp = null;
+let overtimeStartTimestamp = null;
+let pausedOvertimeSeconds = 0;
 let fixedSubjects = [];
 let dailyGoalMinutes = Number(localStorage.getItem("dailyGoalMinutes")) || 0;
 let editingRecordIndex = null;
@@ -109,9 +112,14 @@ addButton.addEventListener("click", () => {
   const time = calculateMinutesFromTimeRange(startTime, endTime);
 
   if (time <= 0) {
-    alert("終了時刻は開始時刻より後にしてください");
-    return;
+   alert("勉強時間が正しく計算できませんでした");
+  return;
   }
+
+  if (time >= 24 * 60) {
+  alert("24時間以上の記録は追加できません");
+  return;
+}
 
   const record = {
     date: date,
@@ -144,7 +152,7 @@ function displayRecords() {
     totalMinutes += record.time;
   });
 
-  totalTime.textContent = `全体の合計：${formatMinutes(totalMinutes)}`;
+  totalTime.textContent = `総合計時間：${formatMinutes(totalMinutes)}`;
 
   updatePeriodStats();
 }
@@ -161,12 +169,8 @@ function displaySelectedDayRecords() {
   });
 
   if (selectedRecords.length === 0) {
-    const li = document.createElement("li");
-    li.className = "empty-record";
-    li.textContent = "この日の記録はありません";
-    recordList.appendChild(li);
-    return;
-  }
+  return;
+}
 
   selectedRecords
     .slice()
@@ -198,7 +202,7 @@ function displaySelectedDayRecords() {
       if (record.startTime && record.endTime) {
        const timeRangeText = document.createElement("div");
        timeRangeText.className = "record-time-range";
-       timeRangeText.textContent = `${record.startTime}〜${record.endTime}`;
+       timeRangeText.textContent = formatTimeRange(record.startTime, record.endTime);
        recordInfo.appendChild(timeRangeText);
       }
 
@@ -366,6 +370,9 @@ startTimerButton.addEventListener("click", () => {
   isPaused = false;
   isOvertime = false;
   timerStartDate = new Date();
+  timerEndTimestamp = Date.now() + originalSeconds * 1000;
+  overtimeStartTimestamp = null;
+  pausedOvertimeSeconds = 0;
 
   updateTimerDisplay();
 
@@ -378,22 +385,28 @@ startTimerButton.addEventListener("click", () => {
 // カウントダウン開始
 function startCountdown() {
   timerId = setInterval(() => {
-    remainingSeconds--;
+    const now = Date.now();
+
+    remainingSeconds = Math.max(
+      0,
+      Math.ceil((timerEndTimestamp - now) / 1000)
+    );
 
     updateTimerDisplay();
 
-    if (remainingSeconds <= 0) {
+    if (now >= timerEndTimestamp) {
       clearInterval(timerId);
       timerId = null;
 
-      // ここではまだ記録しない
-      // バイブして、そのまま延長計測に入る
       vibrateOnFinish();
 
       remainingSeconds = 0;
-      overtimeSeconds = 0;
       isOvertime = true;
       isPaused = false;
+
+      overtimeStartTimestamp = timerEndTimestamp;
+      overtimeSeconds = Math.floor((Date.now() - overtimeStartTimestamp) / 1000);
+      pausedOvertimeSeconds = 0;
 
       timerStatus.textContent = "EXTRA";
       timerStatus.className = "timer-status done";
@@ -408,8 +421,15 @@ function startCountdown() {
 
 // 延長時間を計測
 function startOvertimeCount() {
+  if (!overtimeStartTimestamp) {
+    overtimeStartTimestamp = Date.now() - pausedOvertimeSeconds * 1000;
+  }
+
   timerId = setInterval(() => {
-    overtimeSeconds++;
+    overtimeSeconds = Math.floor(
+      (Date.now() - overtimeStartTimestamp) / 1000
+    );
+
     updateTimerDisplay();
   }, 1000);
 }
@@ -417,18 +437,35 @@ function startOvertimeCount() {
 // 一時停止・再開
 pauseTimerButton.addEventListener("click", () => {
   if (timerId !== null) {
-    clearInterval(timerId);
-    timerId = null;
-    isPaused = true;
-    pauseTimerButton.textContent = "再開";
-
-    timerStatus.textContent = "PAUSED";
-    timerStatus.className = "timer-status paused";
-
-    return;
+  if (!isOvertime && timerEndTimestamp) {
+    remainingSeconds = Math.max(
+      0,
+      Math.ceil((timerEndTimestamp - Date.now()) / 1000)
+    );
   }
 
+  if (isOvertime && overtimeStartTimestamp) {
+    overtimeSeconds = Math.floor(
+      (Date.now() - overtimeStartTimestamp) / 1000
+    );
+    pausedOvertimeSeconds = overtimeSeconds;
+    overtimeStartTimestamp = null;
+  }
+
+  clearInterval(timerId);
+  timerId = null;
+  isPaused = true;
+  pauseTimerButton.textContent = "再開";
+
+  timerStatus.textContent = "PAUSED";
+  timerStatus.className = "timer-status paused";
+
+  return;
+}
+
   if (isPaused && remainingSeconds > 0 && !isOvertime) {
+   timerEndTimestamp = Date.now() + remainingSeconds * 1000;
+
     startCountdown();
     isPaused = false;
     pauseTimerButton.textContent = "一時停止";
@@ -494,6 +531,10 @@ function resetTimerState() {
   isPaused = false;
   isOvertime = false;
   timerStartDate = null;
+  timerStartDate = null;
+  timerEndTimestamp = null;
+  overtimeStartTimestamp = null;
+  pausedOvertimeSeconds = 0;
 
   pauseTimerButton.textContent = "一時停止";
   stopTimerButton.textContent = "中断";
@@ -508,14 +549,14 @@ function resetTimerState() {
 function updateTimerDisplay() {
   if (isOvertime) {
     timerDisplay.textContent = `+${formatTimerSeconds(overtimeSeconds)}`;
-    updateTimerRing(100);
+    updateTimerRing(0);
     return;
   }
 
   timerDisplay.textContent = formatTimerSeconds(remainingSeconds);
 
   if (originalSeconds > 0) {
-    const progress = ((originalSeconds - remainingSeconds) / originalSeconds) * 100;
+    const progress = (remainingSeconds / originalSeconds) * 100;
     updateTimerRing(progress);
   } else {
     updateTimerRing(0);
@@ -538,7 +579,8 @@ function formatTimerSeconds(seconds) {
 // タイマー記録を追加
 function addTimerRecord(minutes, defaultMemo = "タイマーで記録") {
   const endDate = new Date();
-  const today = formatDateString(endDate);
+  const recordDate = timerStartDate ? timerStartDate : endDate;
+  const today = formatDateString(recordDate);
 
   const subject = timerSubjectInput.value || "未設定";
   const memo = defaultMemo;
@@ -570,14 +612,20 @@ function addTimerRecord(minutes, defaultMemo = "タイマーで記録") {
 // プリセットボタン
 presetButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const minutes = button.dataset.minutes;
+    const minutes = Number(button.dataset.minutes);
 
     timerMinutesInput.value = minutes;
-    remainingSeconds = Number(minutes) * 60;
+    originalMinutes = minutes;
+    originalSeconds = minutes * 60;
+    remainingSeconds = minutes * 60;
+
+    isOvertime = false;
+    overtimeSeconds = 0;
 
     timerMinutesInput.classList.add("hidden");
     showTimerMinutesButton.textContent = "＋";
 
+    updateTimerRing(100);
     updateTimerDisplay();
   });
 });
@@ -993,12 +1041,35 @@ function formatTimeString(date) {
   return `${hours}:${minutes}`;
 }
 
-function calculateMinutesFromTimeRange(startTime, endTime) {
+function formatTimeRange(startTime, endTime) {
+  if (!startTime || !endTime) {
+    return "";
+  }
+
   const [startHour, startMinute] = startTime.split(":").map(Number);
   const [endHour, endMinute] = endTime.split(":").map(Number);
 
   const startTotalMinutes = startHour * 60 + startMinute;
   const endTotalMinutes = endHour * 60 + endMinute;
+
+  if (endTotalMinutes < startTotalMinutes) {
+    return `${startTime}〜翌日 ${endTime}`;
+  }
+
+  return `${startTime}〜${endTime}`;
+}
+
+function calculateMinutesFromTimeRange(startTime, endTime) {
+  const [startHour, startMinute] = startTime.split(":").map(Number);
+  const [endHour, endMinute] = endTime.split(":").map(Number);
+
+  const startTotalMinutes = startHour * 60 + startMinute;
+  let endTotalMinutes = endHour * 60 + endMinute;
+
+  // 終了時刻が開始時刻より前なら、翌日まで勉強した扱いにする
+  if (endTotalMinutes <= startTotalMinutes) {
+    endTotalMinutes += 24 * 60;
+  }
 
   return endTotalMinutes - startTotalMinutes;
 }
@@ -1076,12 +1147,11 @@ function updateSubjectSummary() {
   const targetRecords = getRecordsInCurrentPeriod();
 
   if (targetRecords.length === 0) {
-    const li = document.createElement("li");
-    li.className = "subject-summary-empty";
-    li.textContent = "この期間の記録はありません";
-    subjectSummaryList.appendChild(li);
-    return;
-  }
+  subjectSummaryList.closest(".subject-summary").classList.add("hidden");
+  return;
+}
+
+subjectSummaryList.closest(".subject-summary").classList.remove("hidden");
 
   const subjectTotals = {};
 
@@ -1420,3 +1490,26 @@ function escapeCsvValue(value) {
 
   return text;
 }
+
+timerMinutesInput.addEventListener("input", () => {
+  const minutes = Number(timerMinutesInput.value);
+
+  if (minutes <= 0) {
+    originalMinutes = 0;
+    originalSeconds = 0;
+    remainingSeconds = 0;
+    updateTimerRing(0);
+    updateTimerDisplay();
+    return;
+  }
+
+  originalMinutes = minutes;
+  originalSeconds = minutes * 60;
+  remainingSeconds = minutes * 60;
+
+  isOvertime = false;
+  overtimeSeconds = 0;
+
+  updateTimerRing(100);
+  updateTimerDisplay();
+});

@@ -1432,7 +1432,7 @@ body.dark-mode .timer-ring-progress {
       rgba(148, 163, 184, 0.18) 0
     ) !important;
 
-  transition: --ring-progress 1s linear;
+  transition: --ring-progress 0.5s linear;
 }
 
 body.dark-mode .timer-ring-progress {
@@ -1441,4 +1441,262 @@ body.dark-mode .timer-ring-progress {
       #60a5fa calc(var(--ring-progress) * 1%),
       rgba(148, 163, 184, 0.22) 0
     ) !important;
+}
+
+/* ===== 詳細タイマー入力欄の見た目修正 ===== */
+
+.timer-custom-row {
+  display: grid !important;
+  grid-template-columns: 1fr 48px !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+/* 入力欄が閉じているときは＋ボタンだけ右に出す */
+.timer-custom-row:has(#timerMinutes.hidden) {
+  grid-template-columns: 48px !important;
+  justify-content: end !important;
+}
+
+/* 詳細入力欄 */
+#timerMinutes {
+  width: 100% !important;
+  min-height: 48px !important;
+}
+
+/* ＋ / × ボタン */
+.timer-plus-button {
+  width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+
+  padding: 0 !important;
+  border-radius: 14px !important;
+
+  font-size: 24px !important;
+  font-weight: 800 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* number入力の上下ボタンを消す */
+#timerMinutes::-webkit-outer-spin-button,
+#timerMinutes::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#timerMinutes {
+  appearance: textfield;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .timer-custom-row {
+    grid-template-columns: 1fr 46px !important;
+  }
+
+  .timer-custom-row:has(#timerMinutes.hidden) {
+    grid-template-columns: 46px !important;
+  }
+
+  .timer-plus-button {
+    width: 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    font-size: 23px !important;
+  }
+
+  #timerMinutes {
+    min-height: 46px !important;
+  }
+}
+
+/* ===== 青みを少し抑えて落ち着かせる ===== */
+
+/* 全体背景を少しグレー寄りに */
+body {
+  background: #f4f5f7 !important;
+}
+
+/* カードは白を維持 */
+.timer-area,
+.form-area,
+.stats-section,
+.record-section,
+.settings-section,
+.data-section {
+  background: #ffffff !important;
+}
+
+/* 入力欄を青白ではなくグレー白に */
+input {
+  background: #fafafa !important;
+  border-color: #e5e7eb !important;
+}
+
+/* プリセット・科目ボタンを青からグレー寄りに */
+.preset-button,
+.subject-preset-button,
+#addSubjectButton,
+#editGoalButton,
+.manual-plus-button,
+.timer-plus-button,
+.period-nav button {
+  background: #f7f8fa !important;
+  color: #475569 !important;
+  border-color: #e5e7eb !important;
+}
+
+/* ホバー時だけ少し青 */
+.preset-button:hover,
+.subject-preset-button:hover,
+#addSubjectButton:hover,
+#editGoalButton:hover,
+.manual-plus-button:hover,
+.timer-plus-button:hover,
+.period-nav button:hover {
+  background: #eef3ff !important;
+  color: #4f7cff !important;
+  border-color: #d7e2ff !important;
+}
+
+/* 一時停止ボタンもグレー寄りに */
+#pauseTimerButton {
+  background: #f7f8fa !important;
+  color: #475569 !important;
+  border-color: #e5e7eb !important;
+}
+
+/* 科目別・空表示も青みを弱める */
+.subject-summary-item,
+.subject-summary-empty,
+.empty-record {
+  background: #fafafa !important;
+  border-color: #e5e7eb !important;
+}
+
+/* タブの非選択状態をグレーに */
+.tab-buttons button {
+  color: #64748b !important;
+}
+
+.tab-buttons button.active-tab {
+  background: #eef3ff !important;
+  color: #4f7cff !important;
+}
+
+/* ===== 記録タブの青みを抑える ===== */
+
+/* 記録タブ内のカードを少し落ち着いた白・グレーに */
+#recordTab .stats-section,
+#recordTab .record-section,
+#recordTab .form-area {
+  background: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+/* 日・週・月・年ボタン：非選択はグレー */
+#recordTab .period-button {
+  background: #f3f4f6 !important;
+  color: #475569 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* 選択中だけ少し濃いグレー寄り */
+#recordTab .period-button.active-period {
+  background: #334155 !important;
+  color: #ffffff !important;
+  border-color: #334155 !important;
+}
+
+/* 前へ・次へボタンもグレー寄り */
+#recordTab .period-nav button {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+#recordTab .period-nav button:hover {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+/* 大きい勉強時間の青を弱める */
+#recordTab #periodTime {
+  color: #334155 !important;
+}
+
+/* グラフの棒を青ではなく落ち着いたネイビーに */
+#recordTab .vertical-bar {
+  background: #475569 !important;
+}
+
+/* 目標バーも少し落ち着いた色に */
+#recordTab #goalBarFill {
+  background: #475569 !important;
+}
+
+/* 科目別の時間も青を弱める */
+#recordTab .subject-summary-item strong {
+  color: #475569 !important;
+}
+
+/* 科目別・空表示カード */
+#recordTab .subject-summary-item,
+#recordTab .subject-summary-empty,
+#recordTab .empty-record {
+  background: #fafafa !important;
+  border-color: #e5e7eb !important;
+}
+
+/* 手動追加の＋ボタンもグレー寄り */
+#recordTab .manual-plus-button {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border-color: #e5e7eb !important;
+}
+
+#recordTab .manual-plus-button:hover {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+/* ブラックモードの記録タブ */
+body.dark-mode #recordTab .period-button {
+  background: #26344d !important;
+  color: #cbd5e1 !important;
+  border-color: #3b4f70 !important;
+}
+
+body.dark-mode #recordTab .period-button.active-period {
+  background: #64748b !important;
+  color: #0f172a !important;
+  border-color: #64748b !important;
+}
+
+body.dark-mode #recordTab .period-nav button,
+body.dark-mode #recordTab .manual-plus-button {
+  background: #26344d !important;
+  color: #cbd5e1 !important;
+  border-color: #3b4f70 !important;
+}
+
+body.dark-mode #recordTab #periodTime,
+body.dark-mode #recordTab .subject-summary-item strong {
+  color: #e5e7eb !important;
+}
+
+body.dark-mode #recordTab .vertical-bar,
+body.dark-mode #recordTab #goalBarFill {
+  background: #94a3b8 !important;
+}
+
+body.dark-mode #recordTab .subject-summary-item,
+body.dark-mode #recordTab .subject-summary-empty,
+body.dark-mode #recordTab .empty-record {
+  background: #111827 !important;
+  border-color: #374151 !important;
 }
