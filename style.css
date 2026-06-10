@@ -1700,3 +1700,383 @@ body.dark-mode #recordTab .empty-record {
   background: #111827 !important;
   border-color: #374151 !important;
 }
+
+/* ===== ナイトモード最終調整 ===== */
+
+body.dark-mode {
+  background: #0b1220 !important;
+  color: #e5e7eb !important;
+}
+
+/* 全カード */
+body.dark-mode .timer-area,
+body.dark-mode .form-area,
+body.dark-mode .stats-section,
+body.dark-mode .record-section,
+body.dark-mode .settings-section,
+body.dark-mode .data-section,
+body.dark-mode .daily-goal-section,
+body.dark-mode .vertical-graph-outer {
+  background: #172033 !important;
+  color: #e5e7eb !important;
+  border-color: #26344d !important;
+  box-shadow: none !important;
+}
+
+/* 入力欄 */
+body.dark-mode input,
+body.dark-mode #timerSubject,
+body.dark-mode #timerMinutes,
+body.dark-mode #date,
+body.dark-mode #subject,
+body.dark-mode #manualStartTime,
+body.dark-mode #manualEndTime,
+body.dark-mode #dailyGoalInput {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode input::placeholder {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode input:focus {
+  background: #111c2f !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18) !important;
+}
+
+/* タイマーリング */
+body.dark-mode .timer-ring-inner {
+  background: #172033 !important;
+}
+
+body.dark-mode .timer-ring-progress {
+  background:
+    conic-gradient(
+      #60a5fa calc(var(--ring-progress) * 1%),
+      rgba(148, 163, 184, 0.22) 0
+    ) !important;
+}
+
+/* タイマー文字 */
+body.dark-mode #timerDisplay {
+  color: #f8fafc !important;
+}
+
+body.dark-mode #timerStatus,
+body.dark-mode .timer-status {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .timer-status.running {
+  color: #93c5fd !important;
+}
+
+body.dark-mode .timer-status.paused {
+  color: #fbbf24 !important;
+}
+
+body.dark-mode .timer-status.done {
+  color: #93c5fd !important;
+}
+
+/* タイマー操作ボタン */
+body.dark-mode #startTimerButton {
+  background: #60a5fa !important;
+  color: #0b1220 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode #pauseTimerButton {
+  background: #26344d !important;
+  color: #dbeafe !important;
+  border-color: #3b4f70 !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode #stopTimerButton {
+  background: #3a1f2a !important;
+  color: #fda4af !important;
+  border-color: #7f1d1d !important;
+  box-shadow: none !important;
+}
+
+/* プリセット・科目ボタン・小ボタン */
+body.dark-mode .preset-button,
+body.dark-mode .subject-preset-button,
+body.dark-mode #addSubjectButton,
+body.dark-mode #editGoalButton,
+body.dark-mode .manual-plus-button,
+body.dark-mode .timer-plus-button,
+body.dark-mode .period-nav button {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .preset-button:hover,
+body.dark-mode .subject-preset-button:hover,
+body.dark-mode #addSubjectButton:hover,
+body.dark-mode #editGoalButton:hover,
+body.dark-mode .manual-plus-button:hover,
+body.dark-mode .timer-plus-button:hover,
+body.dark-mode .period-nav button:hover {
+  background: #2b3b59 !important;
+}
+
+/* 記録タブの期間ボタン */
+body.dark-mode #recordTab .period-button {
+  background: #26344d !important;
+  color: #cbd5e1 !important;
+  border-color: #3b4f70 !important;
+}
+
+body.dark-mode #recordTab .period-button.active-period {
+  background: #64748b !important;
+  color: #0f172a !important;
+  border-color: #64748b !important;
+}
+
+/* グラフ */
+body.dark-mode #recordTab .vertical-bar,
+body.dark-mode #recordTab #goalBarFill {
+  background: #94a3b8 !important;
+}
+
+body.dark-mode .graph-grid-line {
+  background: rgba(148, 163, 184, 0.22) !important;
+}
+
+body.dark-mode .vertical-y-axis,
+body.dark-mode .vertical-bar-label {
+  color: #cbd5e1 !important;
+}
+
+/* 記録カード */
+body.dark-mode li,
+body.dark-mode .simple-record-card {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border-color: #374151 !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .record-top strong {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .record-time,
+body.dark-mode #periodTime,
+body.dark-mode .subject-summary-item strong {
+  color: #e5e7eb !important;
+}
+
+body.dark-mode .record-time-range,
+body.dark-mode #periodTitle,
+body.dark-mode #totalTime,
+body.dark-mode #currentPeriodLabel,
+body.dark-mode .subject-summary h3,
+body.dark-mode .daily-goal-main span {
+  color: #9ca3af !important;
+}
+
+/* 科目別・空表示 */
+body.dark-mode .subject-summary-item,
+body.dark-mode .subject-summary-empty,
+body.dark-mode .empty-record,
+body.dark-mode .breakdown-item {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border-color: #374151 !important;
+}
+
+/* 編集・削除 */
+body.dark-mode .edit-record-button {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+}
+
+body.dark-mode .delete-record-button,
+body.dark-mode .record-section li button {
+  background: transparent !important;
+  color: #9ca3af !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode .delete-record-button:hover,
+body.dark-mode .record-section li button:hover {
+  background: rgba(220, 38, 38, 0.18) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(248, 113, 113, 0.35) !important;
+}
+
+/* データ管理ボタン */
+body.dark-mode #backupButton {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+}
+
+body.dark-mode #restoreButton {
+  background: #26344d !important;
+  color: #cbd5e1 !important;
+  border-color: #3b4f70 !important;
+}
+
+body.dark-mode #exportCsvButton {
+  background: #12351f !important;
+  color: #86efac !important;
+  border-color: #166534 !important;
+}
+
+body.dark-mode #clearDataButton {
+  background: #3a1f2a !important;
+  color: #fda4af !important;
+  border-color: #7f1d1d !important;
+}
+
+/* 下部タブ */
+body.dark-mode .tab-buttons {
+  background: rgba(11, 18, 32, 0.96) !important;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-mode .tab-buttons button {
+  background: transparent !important;
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .tab-buttons button.active-tab {
+  background: #1d3557 !important;
+  color: #93c5fd !important;
+}
+
+/* ヘッダー */
+body.dark-mode .app-header p {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .theme-toggle-button {
+  background: #26344d !important;
+  color: #f8fafc !important;
+  border: 1px solid #3b4f70 !important;
+  box-shadow: none !important;
+}
+
+/* ===== ナイトモード：記録タブの白飛び修正 ===== */
+
+/* 記録タブの大きいカードを暗く戻す */
+body.dark-mode #recordTab .stats-section,
+body.dark-mode #recordTab .record-section,
+body.dark-mode #recordTab .form-area {
+  background: #172033 !important;
+  color: #e5e7eb !important;
+  border-color: #26344d !important;
+  box-shadow: none !important;
+}
+
+/* 記録タブ内の見出し・文字 */
+body.dark-mode #recordTab h2,
+body.dark-mode #recordTab #periodTime,
+body.dark-mode #recordTab #recordListTitle {
+  color: #f8fafc !important;
+}
+
+body.dark-mode #recordTab #periodTitle,
+body.dark-mode #recordTab #currentPeriodLabel,
+body.dark-mode #recordTab #totalTime,
+body.dark-mode #recordTab .daily-goal-main span,
+body.dark-mode #recordTab .record-time-range {
+  color: #9ca3af !important;
+}
+
+/* 日・週・月・年ボタン */
+body.dark-mode #recordTab .period-button {
+  background: #26344d !important;
+  color: #cbd5e1 !important;
+  border: 1px solid #3b4f70 !important;
+}
+
+body.dark-mode #recordTab .period-button.active-period {
+  background: #60a5fa !important;
+  color: #0b1220 !important;
+  border-color: #60a5fa !important;
+}
+
+/* 前へ・次へ */
+body.dark-mode #recordTab .period-nav button {
+  background: #26344d !important;
+  color: #dbeafe !important;
+  border: 1px solid #3b4f70 !important;
+}
+
+/* 目標カード */
+body.dark-mode #recordTab .daily-goal-section {
+  background: #111827 !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode #recordTab .daily-goal-header span {
+  color: #cbd5e1 !important;
+}
+
+body.dark-mode #recordTab .daily-goal-main strong {
+  color: #f8fafc !important;
+}
+
+body.dark-mode #recordTab .goal-bar {
+  background: #334155 !important;
+}
+
+body.dark-mode #recordTab #goalBarFill {
+  background: #60a5fa !important;
+}
+
+body.dark-mode #recordTab #editGoalButton {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+}
+
+/* グラフなしメッセージ・記録なし表示 */
+body.dark-mode #recordTab .breakdown-item,
+body.dark-mode #recordTab .empty-record {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border-color: #374151 !important;
+}
+
+/* 記録カード */
+body.dark-mode #recordTab .simple-record-card,
+body.dark-mode #recordTab li {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border: 1px solid #374151 !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode #recordTab .record-top strong {
+  color: #f8fafc !important;
+}
+
+body.dark-mode #recordTab .record-time {
+  color: #93c5fd !important;
+}
+
+/* 手動追加プラス */
+body.dark-mode #recordTab .manual-plus-button {
+  background: #22304a !important;
+  color: #dbeafe !important;
+  border-color: #34455f !important;
+}
+
+body.dark-mode #recordTab .manual-plus-button.open {
+  background: #3a1f2a !important;
+  color: #fda4af !important;
+  border-color: #7f1d1d !important;
+}
